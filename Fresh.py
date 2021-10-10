@@ -69,3 +69,12 @@ processing.run("gdal:clipvectorbypolygon", clipmaskDict)
 hfmergeDict = {'LAYERS':[filepath + "FAclipped.shp", filepath + "heathborder.shp"], 'CRS':fireborderLayer, 'OUTPUT':filepath + "heathfirecomplete.shp"}
 processing.run("native:mergevectorlayers", hfmergeDict)
 hfc = iface.addVectorLayer(filepath + "heathfirecomplete.shp","","ogr")
+
+layerList = ['heathborder', 'LatestFire total1991', 'fireborder', 'siteborder', 'Heathlands', 'FIRE_HISTORY', 'heathfirecomplete']
+prj = QgsProject.instance()
+for name in layerList:
+    layer = prj.mapLayersByName(name)[0]
+    if name != 'heathfirecomplete':
+        prj.layerTreeRoot().findLayer(layer.id()).setItemVisibilityCheckedParentRecursive(False)
+    else:
+        prj.layerTreeRoot().findLayer(layer.id()).setItemVisibilityCheckedParentRecursive(True)
