@@ -51,7 +51,7 @@ for i in yearList:
         TotalDict = {'INPUT':fireborderLayer, 'FIELD':'SEASON', 'OPERATOR':0, 'VALUE':i, 'OUTPUT':filepath + "total" + str(i) + ".shp"}
         TotalProcess = processing.run("native:extractbyattribute", TotalDict)
         #TotalLayer = iface.addVectorLayer(filepath + "total" + str(i) + ".shp","", "ogr")
-    elif i < LatestDate:
+    elif i < latestDate:
         NewDict = {'INPUT':fireborderLayer, 'FIELD':'SEASON', 'OPERATOR':0, 'VALUE':str(i), 'OUTPUT':filepath + str(i) + ".shp"}
         NewProcess = processing.run("native:extractbyattribute", NewDict)
         diffDict = {'INPUT':filepath + str(i) + ".shp", 'OVERLAY':filepath + "total" + str(i+1) + ".shp", 'OUTPUT':filepath + str(i) + "new.shp"}
