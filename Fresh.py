@@ -39,8 +39,6 @@ for i in yearList:
         NewProcess = processing.run("native:extractbyattribute", NewDict)
         diffDict = {'INPUT':filepath + str(i) + ".shp", 'OVERLAY':filepath + "total" + str(i+1) + ".shp", 'OUTPUT':filepath + str(i) + "new.shp"}
         processing.run("native:difference", diffDict)
-        #unionDict = {'INPUT':filepath + str(i) + "new.shp" , 'OVERLAY':filepath + "total" + str(i+1) + ".shp" ,'OVERLAY_FIELDS_PREFIX':"1",'OUTPUT':filepath + "total" + str(i) + ".shp"}
-        #processing.run("native:union", unionDict)
         mergeDict = {'LAYERS':[filepath + str(i) + "new.shp", filepath + "total" + str(i+1) + ".shp"], 'CRS':fireborderLayer, 'OUTPUT':filepath + "total" + str(i) + ".shp"}
         processing.run("native:mergevectorlayers", mergeDict)
 latestfireLayer = iface.addVectorLayer(filepath + "total" + str(earliestDate) + ".shp","LatestFire", "ogr")
@@ -70,7 +68,7 @@ hfmergeDict = {'LAYERS':[filepath + "FAclipped.shp", filepath + "heathborder.shp
 processing.run("native:mergevectorlayers", hfmergeDict)
 hfc = iface.addVectorLayer(filepath + "heathfirecomplete.shp","","ogr")
 
-layerList = [layer.name() for layer in QgsMapLayerRegistry.instance().mapLayers().values()]
+layerList = ['heathborder', 'LatestFire total1991', 'fireborder', 'siteborder', 'Heathlands', 'FIRE_HISTORY', 'heathfirecomplete']
 prj = QgsProject.instance()
 for name in layerList:
     layer = prj.mapLayersByName(name)[0]
