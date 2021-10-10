@@ -43,13 +43,14 @@ fireborderLayer.commitChanges()
 #TotalDict = {'INPUT':fireborderLayer, 'FIELD':'SEASON', 'OPERATOR':0, 'VALUE':2021, 'OUTPUT':filepath + "total.shp"}
 #TotalProcess = processing.run("native:extractbyattribute", TotalDict)
 #TotalLayer = iface.addVectorLayer(filepath + "total2021.shp","", "ogr")
-yearList2 = [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991]
-for i in yearList2:
-    if i == 2021:
+yearList = [2021, 2020, 2019, 2018, 2017, 2016, 2015, 2014, 2013, 2012, 2011, 2010, 2009, 2008, 2007, 2006, 2005, 2004, 2003, 2002, 2001, 2000, 1999, 1998, 1997, 1996, 1995, 1994, 1993, 1992, 1991]
+LatestDate = yearList[0]
+for i in yearList:
+    if i == LatestDate:
         TotalDict = {'INPUT':fireborderLayer, 'FIELD':'SEASON', 'OPERATOR':0, 'VALUE':i, 'OUTPUT':filepath + "total" + str(i) + ".shp"}
         TotalProcess = processing.run("native:extractbyattribute", TotalDict)
         #TotalLayer = iface.addVectorLayer(filepath + "total" + str(i) + ".shp","", "ogr")
-    elif i < 2021:
+    elif i < LatestDate:
         NewDict = {'INPUT':fireborderLayer, 'FIELD':'SEASON', 'OPERATOR':0, 'VALUE':str(i), 'OUTPUT':filepath + str(i) + ".shp"}
         NewProcess = processing.run("native:extractbyattribute", NewDict)
         diffDict = {'INPUT':filepath + str(i) + ".shp", 'OVERLAY':filepath + "total" + str(i+1) + ".shp", 'OUTPUT':filepath + str(i) + "new.shp"}
@@ -58,7 +59,7 @@ for i in yearList2:
         #processing.run("native:union", unionDict)
         mergeDict = {'LAYERS':[filepath + str(i) + "new.shp", filepath + "total" + str(i+1) + ".shp"], 'CRS':fireborderLayer, 'OUTPUT':filepath + "total" + str(i) + ".shp"}
         processing.run("native:mergevectorlayers", mergeDict)
-    
+
 #TotalLayer2 = iface.addVectorLayer(filepath + "total.shp","", "ogr")
     
     
