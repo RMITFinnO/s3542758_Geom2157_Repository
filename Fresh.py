@@ -70,7 +70,7 @@ hfmergeDict = {'LAYERS':[filepath + "FAclipped.shp", filepath + "heathborder.shp
 processing.run("native:mergevectorlayers", hfmergeDict)
 hfc = iface.addVectorLayer(filepath + "heathfirecomplete.shp","","ogr")
 
-layerList = ['heathborder', 'LatestFire total1991', 'fireborder', 'siteborder', 'Heathlands', 'FIRE_HISTORY', 'heathfirecomplete']
+layerList = [layer.name() for layer in QgsMapLayerRegistry.instance().mapLayers().values()]
 prj = QgsProject.instance()
 for name in layerList:
     layer = prj.mapLayersByName(name)[0]
