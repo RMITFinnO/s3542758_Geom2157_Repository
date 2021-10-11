@@ -1,6 +1,6 @@
 import processing
 #import variables
-filepath = "D://Uni//2021Semester2//Geospatial_Programming//Final_Project_Dataset//Order_CJPSZB//mga2020_55//esrishape//vicgov_region//GIPPSLAND-0//FIRE//"
+filepath = "D:\\Uni\\2021Semester2\\Geospatial_Programming\\s3542758_SourceData\\"
 firehistory = "FIRE_HISTORY.shp"
 heathlands = "Heathlands.shp"
 siteborder = "siteborder.shp"
